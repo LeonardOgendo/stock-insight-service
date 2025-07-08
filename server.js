@@ -1,14 +1,47 @@
 'use strict';
 require('dotenv').config();
 const express     = require('express');
+const mongoose    = require('mongoose');
 const bodyParser  = require('body-parser');
 const cors        = require('cors');
+const helmet      = require('helmet');
 
 const apiRoutes         = require('./routes/api.js');
 const fccTestingRoutes  = require('./routes/fcctesting.js');
 const runner            = require('./test-runner');
 
 const app = express();
+
+mongoose.connect(process.env.MONGO_URI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+})
+
+.then(() => console.log(' MongoDB connected'))
+.catch(err => console.error('Mongo error:', err));
+
+app.use(helmet());
+app.use(helmet.hidePoweredBy());
+app.use(helmet.frameguard({ action: 'deny' }));
+app.use(helmet.xssFilter());
+app.use(helmet.noSniff());
+app.use(helmet.dnsPrefetchControl());
+
+const ninetyDaysInSeconds = 90 * 24 * 60 * 60;
+app.use(helmet.hsts({
+  maxAge: ninetyDaysInSeconds,
+  force: true
+}));
+
+app.use(helmet.contentSecurityPolicy({
+  directives: {
+    defaultSrc: ["'self'"],
+    scriptSrc: ["'self'"],
+    styleSrc: ["'self'"],
+    imgSrc: ["'self'", "https:"],
+  }
+}));
+
 
 app.use('/public', express.static(process.cwd() + '/public'));
 
