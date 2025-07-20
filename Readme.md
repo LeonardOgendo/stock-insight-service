@@ -6,10 +6,10 @@ A lightweight Node.js microservice that fetches and compares real-time stock dat
 
 ### 🚀 Features
 
-- 🔍 **Fetch Specific Stock** – Get live data by stock symbol  
-- 🧾 **Predefined Stocks** – Query a curated list of popular stock symbols  
-- ⚖️ **Compare Stocks** – Compare live stats between two symbols  
-- ⚙️ **Modular Architecture** – Follows separation of concerns (controllers, services, routes)
+- **Fetch Specific Stock** – Get live data by stock symbol  
+- **Predefined Stocks** – Query a curated list of popular stock symbols  
+- **Compare Stocks** – Compare live stats between two symbols  
+- **Modular Architecture** – Follows separation of concerns (controllers, services, routes)
 
 ---
 
