@@ -14,3 +14,14 @@ export const getAllStocks = async (req, res) => {
       res.status(500).json({ error: 'Failed to fetch stock data' });
    }
 }
+
+export const fetchDefinedStockData = async (req, res) => {
+    const symbol = req.params.symbol;
+    try {
+        const stockData = await fetchStockData(symbol);
+        res.json(stockData);
+    } catch (error) {
+        console.error('Error fetching stock data:', error);
+        res.status(500).json({ error: 'Failed to fetch stock data' });
+    }
+}
